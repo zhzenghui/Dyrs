@@ -198,7 +198,6 @@
 		1038574D17B8B60A00A8BCD5 = {
 			isa = PBXGroup;
 			children = (
-				1038582D17B8D44B00A8BCD5 /* libsqlite3.0.dylib */,
 				1038575F17B8B60B00A8BCD5 /* Dyrs */,
 				1038575817B8B60B00A8BCD5 /* Frameworks */,
 				1038575717B8B60B00A8BCD5 /* Products */,
@@ -218,6 +217,7 @@
 			children = (
 				103857FA17B8B67500A8BCD5 /* CFNetwork.framework */,
 				103857F817B8B66F00A8BCD5 /* libz.1.2.5.dylib */,
+				1038582D17B8D44B00A8BCD5 /* libsqlite3.0.dylib */,
 				103857F617B8B66900A8BCD5 /* SystemConfiguration.framework */,
 				103857F417B8B66400A8BCD5 /* Security.framework */,
 				103857F217B8B65C00A8BCD5 /* MobileCoreServices.framework */,

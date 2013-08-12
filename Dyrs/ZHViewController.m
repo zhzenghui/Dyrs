@@ -35,6 +35,8 @@
 
 - (void)jsonToDB:(NSDictionary *)dataDict
 {
+    
+    [self db];
     ZHPassDataJSON *dataToJson = [[ZHPassDataJSON alloc] init];
     
     [dataToJson dyrsJsonToDB:dataDict];
