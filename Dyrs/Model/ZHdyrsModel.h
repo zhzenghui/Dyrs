@@ -136,8 +136,8 @@
 
 
 @property(nonatomic, assign) int *ID;
-@property(nonatomic, retain) NSString *info;
 @property(nonatomic, retain) NSString *name;
+@property(nonatomic, retain) NSString *info;
 @property(nonatomic, assign) int *house_type_id;
 
 @property(nonatomic, assign) int *area_id;
@@ -154,9 +154,9 @@
 
 @end
 
-#pragma mark - accessories
+#pragma mark - Category
 
-@interface Category : NSObject
+@interface Category1 : NSObject
 
 @property(nonatomic, assign) int *ID;
 @property(nonatomic, retain) NSString *name;
@@ -169,7 +169,7 @@
 
 @end
 
-#pragma mark - accessories_detail
+#pragma mark - Accessories
 
 @interface Accessories : NSObject
 

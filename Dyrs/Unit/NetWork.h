@@ -14,7 +14,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface NetWork : NSObject
+{
+    
+}
+
+
+
 
 
 @property(nonatomic ,assign) bool isConnect;
@@ -24,7 +32,7 @@
 + (id)shareNetWork;
 
 
--(BOOL)CheckNetwork;
+- (BOOL)CheckNetwork;
 
 
 /* 验证本地用户信息

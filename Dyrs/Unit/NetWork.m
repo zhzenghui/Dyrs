@@ -50,9 +50,6 @@ static NetWork *netWork;
     return YES;
 }
 
-
-
-
 #pragma make User
 
 

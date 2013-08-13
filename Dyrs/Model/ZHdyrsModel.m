@@ -193,7 +193,7 @@
 
 #pragma mark - accessories
 
-@implementation Category
+@implementation Category1
 @synthesize ID;
 @synthesize name;
 @synthesize fid;
