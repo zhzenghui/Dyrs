@@ -49,8 +49,8 @@
     
     
     
-    NSString *userString = @"{\"status\":\"100\",  \"data\":{\"table\":\"user\", \"tabledata\":[{\"name\":\"zeng\",\"account\":\"zhz\",\"password\":\"e10adc3949ba59abbe56e057f20f883e\",\"type\":1,\"department_id\":1}]}}";
-    
+    NSString *userString = @"{\"status\":\"100\",  \"data\":{\"table\":\"user\", \"tabledata\":[{\"user_id\":1, \"name\":\"zne\", \"gender\":1, \"account\":\"zhzne\", \"password\":\"123456\", \"type\":1, \"create_time\":\"2013-8-13\", \"status\":0, \"dept_id\":1}]}}";
+//    id, name, info, shop_name, team_name, status, create_time
     NSDictionary *statueDict  = (NSDictionary *)[userString objectFromJSONString] ;
 
 

@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FMDatabase.h"
 
 
 
 @interface ZHPassDataJSON : NSObject
-
+{
+    FMDatabase *db;
+}
 - (void)dyrsJsonToDB:(NSDictionary *)jsonDict;
 
 @end

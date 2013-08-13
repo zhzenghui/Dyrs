@@ -357,6 +357,7 @@
 			children = (
 				103857CD17B8B63E00A8BCD5 /* CCLog.h */,
 				103857CE17B8B63E00A8BCD5 /* Common.h */,
+				103857D817B8B63E00A8BCD5 /* Unit.h */,
 				103857CF17B8B63E00A8BCD5 /* CommonMethod.h */,
 				103857D017B8B63E00A8BCD5 /* CommonMethod.m */,
 				103857D117B8B63E00A8BCD5 /* NetWork.h */,
@@ -366,7 +367,6 @@
 				103857D517B8B63E00A8BCD5 /* Session.h */,
 				103857D617B8B63E00A8BCD5 /* Session.m */,
 				103857D717B8B63E00A8BCD5 /* String.h */,
-				103857D817B8B63E00A8BCD5 /* Unit.h */,
 				103857D917B8B63E00A8BCD5 /* ZHPassDataJSON.h */,
 				103857DA17B8B63E00A8BCD5 /* ZHPassDataJSON.m */,
 			);
@@ -641,6 +641,7 @@
 				1038577B17B8B60B00A8BCD5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

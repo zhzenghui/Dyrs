@@ -69,8 +69,8 @@
 #pragma mark - Users
 
 @implementation User
-@synthesize ID;
-@synthesize district_id;
+@synthesize user_id;
+@synthesize gender;
 @synthesize name;
 @synthesize account;
 @synthesize password;

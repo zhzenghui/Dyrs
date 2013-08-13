@@ -53,6 +53,7 @@
 
 #define KCurrentUser @"currentUser"
 
+#define KDocumentDirectory [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 
 
 

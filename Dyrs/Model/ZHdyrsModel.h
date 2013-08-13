@@ -60,11 +60,12 @@
     
 }
 
-@property(nonatomic, assign) int *ID;
-@property(nonatomic, assign) int *district_id;
+@property(nonatomic, assign) int *user_id;
+@property(nonatomic, assign) int *gender;
 @property(nonatomic, retain) NSString *name;
 @property(nonatomic, retain) NSString *account;
 @property(nonatomic, retain) NSString *password;
+
 @property(nonatomic, assign) int *type;
 @property(nonatomic, assign) int *dept_id;
 
