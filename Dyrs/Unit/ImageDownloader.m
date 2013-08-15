@@ -53,6 +53,7 @@
         }
         
         if (imageData) {
+            self.photoRecord.status = 2;
 //            UIImage *downloadedImage = [UIImage imageWithData:imageData];
             
 //            1.存储到本地

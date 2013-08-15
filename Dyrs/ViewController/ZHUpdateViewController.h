@@ -16,7 +16,10 @@
 #import "ImageDownloader.h"
 
 @interface ZHUpdateViewController : UIViewController<ImageDownloaderDelegate>
-
+{
+    NSDate *startDate ;
+    NSDate *endDate;
+}
 
 
 @property (nonatomic, strong) PendingOperations *pendingOperations;
