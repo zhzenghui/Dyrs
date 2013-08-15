@@ -59,6 +59,7 @@
 		10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */; };
 		10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */ = {isa = PBXBuildFile; fileRef = 10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */; };
 		10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */; };
+		10B4D39F17BCEA8400C4F6A0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 10B4D39E17BCEA8400C4F6A0 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +190,7 @@
 		10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dyrs_sqlite.sql; path = ViewController/dyrs_sqlite.sql; sourceTree = "<group>"; };
 		10B4D39B17BCC51100C4F6A0 /* ZHDBControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDBControl.h; sourceTree = "<group>"; };
 		10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDBControl.m; sourceTree = "<group>"; };
+		10B4D39E17BCEA8400C4F6A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 				10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */,
 				1038576117B8B60B00A8BCD5 /* Dyrs-Info.plist */,
 				1038576217B8B60B00A8BCD5 /* InfoPlist.strings */,
+				10B4D39E17BCEA8400C4F6A0 /* README.md */,
 				1038576517B8B60B00A8BCD5 /* main.m */,
 				1038576717B8B60B00A8BCD5 /* Dyrs-Prefix.pch */,
 				1038576B17B8B60B00A8BCD5 /* Default.png */,
@@ -500,6 +503,7 @@
 				1038577617B8B60B00A8BCD5 /* ZHViewController.xib in Resources */,
 				103857F117B8B63E00A8BCD5 /* ZHMainViewController.xib in Resources */,
 				10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */,
+				10B4D39F17BCEA8400C4F6A0 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
