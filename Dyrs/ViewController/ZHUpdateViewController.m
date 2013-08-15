@@ -7,6 +7,8 @@
 //
 
 #import "ZHUpdateViewController.h"
+#import "FMDatabase.h"
+
 
 @interface ZHUpdateViewController ()
 
@@ -41,30 +43,97 @@
 
 - (void)loadImage
 {
-    
-    
+
     startDate = [[NSDate alloc] init];
     
-    for (int i=0; i < 10; i++) {
-        Images *imgs= [[Images alloc] init];
-        imgs.url   = [NSString stringWithFormat:@"https://developer.apple.com/home/images/tile-wwdc2013.jpg"];        
-        imgs.name = [NSString stringWithFormat:@"img%d", i];
+    ZHPassDataJSON *dataToJson = [[ZHPassDataJSON alloc] init];
+
+    NSMutableArray *dataArray = [dataToJson getAllUpdateImage ];
+    
+    
+    textLabel.text = [NSString stringWithFormat:@"%@ %d", @"下载数量 !!!", [dataArray count]];
+
+    for (int i=0; i < dataArray.count; i++) {
+        Images *imgs= [dataArray objectAtIndex:i];
+
+        
         ImageDownloader *imageDownloader = [[ImageDownloader alloc] initWithPhotoRecord:imgs  delegate:self];
         [self.pendingOperations.downloadsInProgress setObject:imageDownloader forKey:imgs.name];
         [self.pendingOperations.downloadQueue addOperation:imageDownloader];
 
     }
-    
-    
-    
 
-    
 }
 
 
 - (void)cancelAllOperations {
     [self.pendingOperations.downloadQueue cancelAllOperations];
 }
+
+
+- (void)db
+{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
+    
+    FMDatabase *db = [FMDatabase databaseWithPath:dbPath] ;
+    if (![db open]) {
+        NSLog(@"Could not open db.");
+        return ;
+    }
+    
+}
+
+
+- (void)passDidFinish:(NSDictionary *)jsonDict
+{
+    NSLog(@"pass finish !!!");
+    textLabel.text = @"pass finish !!!";
+    
+    [self loadImage];
+}
+
+
+
+- (void)jsonToDB:(NSDictionary *)dataDict
+{
+    
+    ZHPassDataJSON *dataToJson = [[ZHPassDataJSON alloc] init];
+    dataToJson.delegate = self;
+    [dataToJson jsonToDB:dataDict];
+    [dataToJson release];
+    
+}
+
+
+- (void)parseData:(UIButton *)button
+{
+
+    
+    NSString *userString = @"{\"status\": \"100\",\"data\": {\"user\": [{\"sqltype\": \"i\",\"sqldata\": {\"user_id\": 1,\"name\": \"zne\",\"gender\":1,\"account\": \"zhzne\",\"password\": \"123456\",\"type\": 1,\"create_time\": \"2013-8-13\",\"status\": 0,\"dept_id\": 1}}],\"images\": [{\"sqltype\": \"i\",\"sqldata\": {\"id\": 1,\"name\": \"pic1.jpg\",\"url\": \"https://www.google.com.hk/images/nav_logo143.png\",\"object_type\": 0,\"object_id\": 0,\"status\": 0,\"create_time\": \"2013-8-13\"}}]}}";
+
+    NSDictionary *statueDict  = (NSDictionary *)[userString objectFromJSONString] ;
+    
+    
+    
+    
+    if ([[statueDict objectForKey:@"status"] isEqualToString:Statue_success]) {
+        
+        NSDictionary *dataDict = (NSDictionary *)[statueDict objectForKey:@"data"];
+        [self jsonToDB:dataDict];
+        
+    }
+    else {
+        
+        NSLog(@"返回 statue：  %@ \n", [statueDict objectForKey:@"statue"] );
+    }
+    
+}
+
+
+
 
 #pragma - view cycle
 
@@ -83,12 +152,34 @@
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    
+    
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"解析json" forState:UIControlStateNormal];
+    button.frame = CGRectMake(20, 100, 280, 50);
+    [button addTarget:self  action:@selector(parseData:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:button];
+    
+    
+    
+    
     UIButton *button3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button3 setTitle:@"解析json" forState:UIControlStateNormal];
+    [button3 setTitle:@"加载图片" forState:UIControlStateNormal];
     button3.frame = CGRectMake(20, 300, 280, 50);
     [button3 addTarget:self  action:@selector(loadImage) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:button3];
+    
+    
+    textLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 300, 280, 50)];
+    textLabel.text = @"状态";
+    
+    [self.view addSubview:textLabel];
+    
+    [textLabel release];
+    
 }
 
 
@@ -103,6 +194,15 @@
     [super didReceiveMemoryWarning];
 }
 
+
+- (void)dealloc
+{
+    [super dealloc];
+    
+    
+    [textLabel release];
+    [startDate release];
+}
 
 
 @end

@@ -7,8 +7,9 @@
 //
 
 #import "ZHViewController.h"
-#import "ZHPassDataJSON.h"
-#import "FMDatabase.h"
+#import "ZHUpdateViewController.h"
+
+
 
 
 @interface ZHViewController ()
@@ -18,58 +19,18 @@
 @implementation ZHViewController
 
 
-- (void)db
+
+
+- (void)openUpdateViewController
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
+    ZHUpdateViewController *updateViewController = [[ZHUpdateViewController alloc] init];
     
-    FMDatabase *db = [FMDatabase databaseWithPath:dbPath] ;
-    if (![db open]) {
-        NSLog(@"Could not open db.");
-        return ;
-    }
-
+    [self.view  addSubview:updateViewController.view];
+    [self  addChildViewController:updateViewController];
+    
+    
+    [updateViewController release];
 }
-
-
-- (void)jsonToDB:(NSDictionary *)dataDict
-{
-    
-    [self db];
-    ZHPassDataJSON *dataToJson = [[ZHPassDataJSON alloc] init];
-    
-    [dataToJson dyrsJsonToDB:dataDict];
-    [dataToJson release];
-}
-
-
-- (void)parseData:(UIButton *)button
-{
-    
-    
-    
-    NSString *userString = @"{\"status\":\"100\",  \"data\":{\"table\":\"user\", \"tabledata\":[{\"user_id\":1, \"name\":\"zne\", \"gender\":1, \"account\":\"zhzne\", \"password\":\"123456\", \"type\":1, \"create_time\":\"2013-8-13\", \"status\":0, \"dept_id\":1}]}}";
-//    id, name, info, shop_name, team_name, status, create_time
-    NSDictionary *statueDict  = (NSDictionary *)[userString objectFromJSONString] ;
-
-
-    
-    
-    if ([[statueDict objectForKey:@"status"] isEqualToString:Statue_success]) {
-        
-        NSDictionary *dataDict = (NSDictionary *)[statueDict objectForKey:@"data"];
-        [self jsonToDB:dataDict];
-        
-    }
-    else {
-        
-        NSLog(@"返回 statue：  %@ \n", [statueDict objectForKey:@"statue"] );
-    }
-    
-}
-
-
 
 #pragma mark    - view cycle
 - (void)viewDidLoad
@@ -77,13 +38,16 @@
     [super viewDidLoad];
 
 
-    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button3 setTitle:@"解析json" forState:UIControlStateNormal];
-    button3.frame = CGRectMake(20, 300, 280, 50);
-    [button3 addTarget:self  action:@selector(parseData:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:button3];
 
+    UIButton *button4 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button4 setTitle:@"open update" forState:UIControlStateNormal];
+    button4.frame = CGRectMake(20, 400, 280, 50);
+    [button4 addTarget:self  action:@selector(openUpdateViewController) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:button4];
+    
+    
+    [self openUpdateViewController];
 
 }
 

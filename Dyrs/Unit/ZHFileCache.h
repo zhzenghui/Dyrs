@@ -9,5 +9,19 @@
 #import <Foundation/Foundation.h>
 
 @interface ZHFileCache : NSObject
+{
+    
+    NSArray *pathsArray;
+    NSString *diskCachePath;
+
+    
+}
+
+
+- (void)saveFile;
+
++ (ZHFileCache *)share;
+
+
 
 @end

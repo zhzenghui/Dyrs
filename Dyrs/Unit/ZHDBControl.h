@@ -9,5 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface ZHDBControl : NSObject
+{
+    
+}
+
+
++ (ZHDBControl *)share;
+
+
+- (BOOL)checkDB;
 
 @end

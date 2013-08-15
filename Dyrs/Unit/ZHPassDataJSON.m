@@ -9,21 +9,28 @@
 #import "ZHPassDataJSON.h"
 
 #import "ZHdyrsModel.h"
-
+#import "ZHDBControl.h"
 
 #define FMDBQuickCheck(SomeBool) { if (!(SomeBool)) { NSLog(@"Failure on line %d", __LINE__); abort(); } }
 
 
 @implementation ZHPassDataJSON
 
+
+
+
 - (id) init
 {
     self = [super init];
     if (self)
     {
-        NSString *dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
-        db = [FMDatabase databaseWithPath:dbPath] ;
-
+        
+        if ([[ZHDBControl share] checkDB]) {
+            
+            NSString *dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
+            db = [[FMDatabase alloc ]initWithPath:dbPath] ;
+            
+        }
     }
     return self;
 }
@@ -36,8 +43,25 @@
         [db release];
         return;
     }
+    
+    
 }
 
+
+#pragma mark  命令执行
+
+- (void)stringToDBSqlString:(NSString *)sqlString
+{
+    bool statue =  [db executeUpdate:
+                    sqlString];
+    
+    if (statue) {
+        
+    }
+    else {
+        DLog(@"statue:%i error: %@", statue, sqlString);
+    }
+}
 
 
 - (void)dictToDB:(NSDictionary *)dict sqlString:(NSString *)sqlString
@@ -49,148 +73,318 @@
 
     }
     else {
-        DLog(@"statue:%i error: %@", statue, sqlString);
+        DLog(@"statue:%i error: %@,  \n lasterror:%@", statue, sqlString, db.lastError);
     }
 }
 
 
-#pragma mark - user
+/*
 
-- (void)deleteDict:(NSString *)ID
+switch (tableName) {
+    case UserTable:
+    {
+        break;
+    }
+    case ChannelTable:
+    {
+    }
+    case Channel_viewTable:
+    {
+        
+    }
+    case DepartmentTable:
+    {
+        
+    }
+    case ImagesTable:
+    {
+        
+    }
+    case ValuesTable:
+    {
+        
+    }
+    case MemberTable:
+    {
+        
+    }
+    case CasesTable:
+    {
+        
+    }
+    case CategoryTable:
+    {
+        
+    }
+    case AccessoriesTable:
+    {
+        
+    }
+    default:
+        break;
+}
+ 
+ */
+#pragma mark - insert  update  delete
+
+
+
+
+- (void)deleteDictToDB:(NSDictionary *)dict  tableName:(_TableName)tableName
 {
+    NSString *sqlString = nil;
     
-    NSMutableString *sqlString = [NSMutableString string];
+    switch (tableName) {
+        case UserTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from user  \
+                         WHERE user_id = :user_id"];
+            break;
+        }
+        case ChannelTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Channel  \
+                         WHERE user_id = :user_id"];
+            break;
+        }
+        case Channel_viewTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Channel_View  \
+                         WHERE user_id = :user_id"];
+            break;
+        }
+        case DepartmentTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Department  \
+                         WHERE id = :id"];
+            break;
+        }
+        case ImagesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Images  \
+                         WHERE id = :id"];
+            break;
+        }
+        case ValuesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from values  \
+                         WHERE id = :id"];
+            break;
+        }
+        case MemberTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Member  \
+                         WHERE id = :id"];
+            break;
+        }
+        case CasesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Cases  \
+                         WHERE id = :id"];
+            break;
+        }
+        case CategoryTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Category  \
+                         WHERE id = :id"];
+            break;
+        }
+        case AccessoriesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"DELETE from Accessories  \
+                         WHERE id = :id"];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    [self dictToDB:dict sqlString:sqlString];
+ 
 
-    sqlString = [NSString stringWithFormat:@"DELETE from user  \
-                 WHERE user_id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Channel  \
-                 WHERE user_id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Channel_View  \
-                 WHERE user_id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Department  \
-                 WHERE id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Images  \
-                 WHERE id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from values  \
-                 WHERE id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Member  \
-                 WHERE id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Cases  \
-                 WHERE id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Category  \
-                 WHERE id = %@", ID];
-    sqlString = [NSString stringWithFormat:@"DELETE from Accessories  \
-                 WHERE id = %@", ID];
-    
 }
 
-
-- (void)deleteUserDictToDB:(NSDictionary *)dict
+- (void)updataDictToDB:(NSDictionary *)userDict  tableName:(_TableName)tableName
 {
     
-}
+    NSString *sqlString = nil;
 
-- (void)updataUserDictToDB:(NSDictionary *)userDict
-{
     
-    NSMutableString *sqlString = [NSMutableString string];
+    
+    switch (tableName) {
+        case UserTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update user set  \
+                         user_id=:user_id, name=:name, gender=:gender, account=:account, password=:password,\
+                         type=:type, create_time=:create_time, status=:status, dept_id=:dept_id  \
+                         \
+                         WHERE user_id = :user_id;"];
+            break;
+        }
+        case ChannelTable:
+        {
+            
+            sqlString = [NSString stringWithFormat:@"update Channel set \
+                         channel_id=:channel_id, name=:name, array_order=:array_order,\
+                         status=:status, create_time=:create_time \
+                         \
+                         WHERE user_id = :user_id;"];
+            break;
+        }
+        case Channel_viewTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Channel_View set \
+                         user_id=:user_id, channel_id=:channel_id \
+                         \
+                         WHERE user_id = :user_id;"];
+            break;
+        }
+        case DepartmentTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Department set  \
+                         id=:id, name=:name, info=:info, shop_name=:shop_name,\
+                         team_name=:team_name, status=:status, create_time=:create_time \
+                         \
+                         WHERE id = :id;"];
+            break;
+        }
+        case ImagesTable:
+        {
+            
+            
+            sqlString = [NSString stringWithFormat:@"update Images set \
+                         id=:id, name=:name, url=:url, object_type=:object_type, \
+                         object_id=:object_id, status=:status, create_time=:create_time \
+                         \
+                         WHERE id = :id;"];
+            
+            break;
+        }
+        case ValuesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update values set  \
+                         id=:id, key_key=:key_key, key_value=:key_value, user_id=:user_id\
+                         \
+                         WHERE id = :id;"];
+            
+            break;
+        }
+        case MemberTable:
+        {
+            
+            sqlString = [NSString stringWithFormat:@"update Member set  \
+                         id=:id, name=:name, info=:info, dept_id=:dept_id,  \
+                         gender=:gender,type=:type, status=:status, create_time=:create_time \
+                         \
+                         WHERE id = :id;"];
+            break;
+        }
+        case CasesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Cases set  \
+                         id=:id, name=:name, info=:info, dept_id=:dept_id, \
+                        house_type_id=:house_type_id,\
+                         style_id=:style_id, city_id=:city_id, dept_id=:dept_id, \
+                         member_id=:member_id, price=:price, status=:status,\
+                         create_time=:create_time \
+                         \
+                         WHERE id = :id;"];
+            break;
+        }
+        case CategoryTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Category set \
+                         id=:id, name=:name, fid=:fid, level=:level, last=:last,\
+                         type=:type, status=:status, create_time=:create_time \
+                         WHERE id = :id;"];
+            break;
+        }
+        case AccessoriesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Accessories set \
+                         id=:id, title=:title, info=:info, cate_id=:cate_id,  \
+                         status=:status, create_time=:create_time \
+                         \
+                         WHERE id = :id;"];
+            break;
+        }
+        default:
+            break;
+    }
 
-    sqlString = [NSString stringWithFormat:@"update user set  \
-                 user_id=:user_id, name, gender, account, password,\
-                 type, create_time, status, dept_id  \
-                 \
-                 WHERE user_id = :user_id;"];
-    
-    sqlString = [NSString stringWithFormat:@"update Channel set \
-                 channel_id=:channel_id, name=:name, array_order=:array_order,\
-                 status=:status, create_time=:create_time \
-                 \
-                 WHERE user_id = :user_id;"];
-    
-    sqlString = [NSString stringWithFormat:@"update Channel_View set \
-                 user_id=:user_id, channel_id=:channel_id \
-                 \
-                 WHERE user_id = :user_id;"];
-    
-    sqlString = [NSString stringWithFormat:@"update Department set  \
-                 id=:id, name=:name, info=:info, shop_name=:shop_name,\
-                 team_name=:team_name, status=:status, create_time=:create_time \
-                 \
-                 WHERE id = :id;"];
-    
-    sqlString = [NSString stringWithFormat:@"update Images set \
-                 id=:id, name=:name, url=:url, object_type=:object_type, \
-                 object_id=:object_id, status=:status, create_time=:create_time \
-                 \
-                 WHERE id = :id;"];
-    
-    sqlString = [NSString stringWithFormat:@"update values set  \
-                 id=:id, key_key=:key_key, key_value=:key_value, user_id=:user_id\
-                 \
-                 WHERE id = :id;"];
-    
-    sqlString = [NSString stringWithFormat:@"update Member set  \
-                 id=:id, name=:name, info=:info, dept_id=:dept_id,  \
-                 gender=:gender,type=:type, status=:status, create_time=:create_time \
-                 \
-                 WHERE id = :id;"];
 
-    sqlString = [NSString stringWithFormat:@"update Cases set  \
-                 id=:id, name=:name, info=:info, dept_id=:dept_id, \
-                 house_type_id=:house_type_id, house_type_id=:house_type_id,\
-                 style_id=:style_id, city_id=:city_id, dept_id=:dept_id, \
-                 member_id=:member_id, price=:price, status=:status,\
-                 create_time=:create_time \
-                 \
-                 WHERE id = :id;"];
-
-    sqlString = [NSString stringWithFormat:@"update Category set \
-                 id=:id, name=:name, fid=:fid, level=:level, last=:last,\
-                  type=:type, status=:status, create_time=:create_time \
-                 WHERE id = :id;"];
-
-    sqlString = [NSString stringWithFormat:@"update Accessories set \
-                 id=:id, title=:title, info=:info, cate_id=:cate_id,  \
-                 status=:status, create_time=:create_time \
-                 \
-                 WHERE id = :id;"];
 
     
     [self dictToDB:userDict sqlString:sqlString];
 
 }
 
-- (void)userDictToDB:(NSDictionary *)userDict 
+- (void)insertDictToDB:(NSDictionary *)userDict  tableName:(_TableName)tableName
 {
     
     NSString *sqlString = nil;
     
-    sqlString = [NSString stringWithFormat:@"INSERT INTO user (user_id, name, gender, account, password, type, create_time, status, dept_id) VALUES (:user_id, :name, :gender, :account, :password, :type, :create_time, :status, :dept_id)"];
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Channel (channel_id, name, array_order, status, create_time) VALUES (:channel_id, :name, :array_order, :status, :create_time)"];
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Channel_View (user_id, channel_id) VALUES (:user_id, :channel_id)"];
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Department (id, name, info, shop_name, team_name, status, create_time) VALUES (:id, :name, :info, :shop_name, :team_name, :status, :create_time)"];
-    
-    
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Images (id, name, url, object_type, object_id, status, create_time) VALUES (:id, :name, :url, :object_type, :object_id, :status, :create_time)"];    
-    sqlString = [NSString stringWithFormat:@"INSERT INTO values (id, key_key, key_value, user_id) VALUES (:id, :key_key, :key_value, :user_id)"];    
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Member (id, name, info, dept_id, gender, type, status, create_time) VALUES (:id, :name, :info, :dept_id, :gender, :type, :status, :create_time)"];
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Cases (id, name, info, dept_id, house_type_id, area_id, style_id, city_id, dept_id, member_id, price, status, create_time) VALUES (:id, :name, :info, :dept_id, :house_type_id, :area_id, :style_id, :city_id, :dept_id, :member_id, :price, :status, :create_time)"];    
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Category (id, name, fid, level, last, status, create_time) VALUES (:id, :name, :fid, :level, :last, :status, :create_time)"];
-    
-    sqlString = [NSString stringWithFormat:@"INSERT INTO Accessories (id, title, info, cate_id, status, create_time) VALUES (:id, :title, :info, :cate_id, :status, :create_time)"];
-    
+    switch (tableName) {
+        case UserTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO user (user_id, name, gender, account, password, type, create_time, status, dept_id) VALUES (:user_id, :name, :gender, :account, :password, :type, :create_time, :status, :dept_id)"];
+            break;
+        }
+        case ChannelTable:
+        {
+                sqlString = [NSString stringWithFormat:@"INSERT INTO Channel (channel_id, name, array_order, status, create_time) VALUES (:channel_id, :name, :array_order, :status, :create_time)"];
+            break;
+        }
+        case Channel_viewTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Channel_View (user_id, channel_id) VALUES (:user_id, :channel_id)"];
+            break;
+
+        }
+        case DepartmentTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Department (id, name, info, shop_name, team_name, status, create_time) VALUES (:id, :name, :info, :shop_name, :team_name, :status, :create_time)"];
+            break;
+
+        }
+        case ImagesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Images (id, name, url, object_type, object_id, status, create_time) VALUES (:id, :name, :url, :object_type, :object_id, :status, :create_time)"];
+            break;
+        }
+        case ValuesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO values (id, key_key, key_value, user_id) VALUES (:id, :key_key, :key_value, :user_id)"];
+            break;
+        }
+        case MemberTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Member (id, name, info, dept_id, gender, type, status, create_time) VALUES (:id, :name, :info, :dept_id, :gender, :type, :status, :create_time)"];
+            break;
+        }
+        case CasesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Cases (id, name, info, dept_id, house_type_id, area_id, style_id, city_id, dept_id, member_id, price, status, create_time) VALUES (:id, :name, :info, :dept_id, :house_type_id, :area_id, :style_id, :city_id, :dept_id, :member_id, :price, :status, :create_time)"];
+            break;
+        }
+        case CategoryTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Category (id, name, fid, level, last, status, create_time) VALUES (:id, :name, :fid, :level, :last, :status, :create_time)"];
+            break;
+        }
+        case AccessoriesTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Accessories (id, title, info, cate_id, status, create_time) VALUES (:id, :title, :info, :cate_id, :status, :create_time)"];
+            break;
+        }
+        default:
+            break;
+    }
+
     
     [self dictToDB:userDict sqlString:sqlString];
 }
 
-- (void)userArrayToDB:(NSArray *)array
-{
-    
-    for (NSDictionary *userDict in array) {
-        
-        [self userDictToDB:userDict];
-    }
-}
 
 
 #pragma mark - data to pass
@@ -223,17 +417,14 @@
     [sqlString appendString:@"UPDATE user SET status = 0 WHERE status = 2;"];
     //  values
     [sqlString appendString:@"UPDATE values SET status = 0 WHERE status = 2;"];
-    
-    
-    
-    
+
     
     if (![db open]) {
         DLog (@"Could not open db.");
     }
     else {
         
-        [db beginTransaction];
+
         
         BOOL rc = [db executeUpdate:sqlString];
         
@@ -243,42 +434,255 @@
             NSLog(@"ERROR: %d - %@", db.lastErrorCode, db.lastErrorMessage);
         }
         
-        [db commit];
-        
         [db close];
-        
     }
 }
 
-- (void)dyrsJsonToDB:(NSDictionary *)jsonDict
+
+
+
+
+
+
+- (void)jsonSqlType:(NSDictionary *)tableSqlDict  tableName:(_TableName)tableName
+{
+    
+    if ([[tableSqlDict objectForKey:@"sqltype"] isEqualToString:Kinsert]) {
+        
+        [self insertDictToDB:[tableSqlDict objectForKey:@"sqldata"] tableName:tableName];
+    }
+    else if ([[tableSqlDict objectForKey:@"sqltype"] isEqualToString:Kupdate]) {
+        
+        [self updataDictToDB:[tableSqlDict objectForKey:@"sqldata"]  tableName:tableName];
+
+    }
+    else if ([[tableSqlDict objectForKey:@"sqltype"] isEqualToString:Kdelete]) {
+        [self deleteDictToDB:[tableSqlDict objectForKey:@"sqldata"]  tableName:tableName];
+
+    }
+}
+
+
+/*
+ *  遍历  所有 
+ *
+ *
+ */
+- (void)insertToDB:(NSArray *)array tableName:(_TableName)tableName
+{
+    
+    for (NSDictionary *userDict in array) {
+        
+        [self jsonSqlType:userDict tableName:tableName];
+    }
+}
+
+
+/*
+ 
+ 判断该表数据是否存在后
+ 
+ 以   table  为键名的   取得表数据
+ 
+ */
+- (void)jsonToTableDB:(NSDictionary *)jsonDict
 {
 
+    
+    if ([jsonDict objectForKey:@"user"])
+    {
+        [self insertToDB:[jsonDict objectForKey:@"user"] tableName:UserTable];
+    }
+    
+    
+    if ([jsonDict objectForKey:@"cases"])
+    {
+        [self insertToDB:[jsonDict objectForKey:@"cases"] tableName:CasesTable];
+    }
+    
+    
+    if ([jsonDict objectForKey:@"images"])
+    {
+        [self insertToDB:[jsonDict objectForKey:@"images"] tableName:ImagesTable];
+    }
+    
+    
+}
+
+
+
+
+
+/*
+ 
+ json   =>    sql   db  
+
+{
+    "status": "100",
+    "data": {
+        "user": [
+                 {
+                     "sqltype": "i",
+                     "sqldata": {
+                         "user_id": 1,
+                         "name": "zne",
+                         "gender": 1,
+                         "account": "zhzne",
+                         "password": "123456",
+                         "type": 1,
+                         "create_time": "2013-8-13",
+                         "status": 0,
+                         "dept_id": 1
+                     }
+                 }
+                 ],
+        "image": [ ]
+    }
+}
+  */
+
+- (void)jsonToDB:(NSDictionary *)jsonDict
+{
+    
+
+    dispatch_queue_t queue = dispatch_queue_create("com.ple.queue", NULL);
+    dispatch_async(queue, ^(void) {
+    
+        
+        if (![db open]) {
+            
+            DLog (@"Could not open db.");
+        }
+        else {
+            [self jsonToTableDB:jsonDict];
+
+        }
+        
+        
+        dispatch_release(queue);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate performSelector:@selector(passDidFinish:)];
+            
+        });
+        
+        
+    });
+
+}
+
+
+- (NSMutableArray *)getAllUpdateImage
+{
+    
+    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+
+    
+    
+    NSString *sqlString = [NSString stringWithFormat:@"select * from images"];
+    
+    
     if (![db open]) {
+        
         DLog (@"Could not open db.");
     }
     else {
+        
+        
+        FMResultSet *rs = [db executeQuery:sqlString];
+        Images *image = [[Images alloc] init];
+
+        while ([rs next]) {
+            
+            image.ID = [rs intForColumn:@"id"];
+            image.name = [rs stringForColumn:@"name"];
+            image.url = [rs stringForColumn:@"url"];
+           
+            image.object_id = [rs intForColumn:@"object_id"];
+            image.object_type = [rs intForColumn:@"object_type"];
+            image.status = [rs intForColumn:@"status"];
+
+            image.create_time = [rs stringForColumn:@"create_time"];
+
+            
+            [dataArray addObject:image];
+            
+        }
+        
+        [image release];
+        
+        [rs close];
+    }
     
-        [db beginTransaction];
 
-        
-        
-        if ([[jsonDict objectForKey:@"table"] isEqualToString:@"user"])
+    return [dataArray autorelease];
+}
+
+- (NSArray *)fmResultSetToArray:(FMResultSet *)rs dataArray:(NSMutableArray *)dataArray tableName:(_TableName)table
+{
+//    while ([rs next]) {
+//
+//        
+//        switch (table) {
+//            case ImagesTable:
+//            {
+//                
+//                
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+//    }
+    return dataArray;
+}
+
+
+#pragma mark  get  data  
+
+- (NSArray *)getData :(_TableName)table  pageNum:(int)pageNum pageSize:(int)pageSize
+{
+    
+    NSString *sqlString  = nil;
+    NSString *tableNameString  = nil;
+
+    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+    
+    switch (table) {
+        case ImagesTable:
         {
-
-            [self userArrayToDB:[jsonDict objectForKey:@"tabledata"]];        
-            
+            tableNameString = [NSString stringWithFormat:@"images"];
+            break;
         }
-        else if ([[jsonDict objectForKey:@"table"] isEqualToString:@"values"])
-        {
-            
-        }
-        
-        
-        
-        [db commit];
-
-        [db close];
+        default:
+            break;
+    }
+    if (pageNum == 0 && pageSize == 0) {
+        sqlString = [NSString stringWithFormat:@"select * from %@", tableNameString];
+    }
+    else {
         
     }
+
+
+    if (![db open]) {
+        
+        DLog (@"Could not open db.");
+    }
+    else {
+        FMResultSet *rs = [db executeQuery:sqlString];
+        
+        [self fmResultSetToArray:rs dataArray:dataArray tableName:table];
+            
+
+        [rs close];
+
+    }
+    
+    
+    return [dataArray autorelease];
+    
 }
+
+
+
 @end

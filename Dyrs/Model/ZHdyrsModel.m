@@ -113,6 +113,12 @@
 @synthesize status;
 @synthesize create_time;
 
+- (void)getAll
+{
+    
+    
+    
+}
 
 - (void)dealloc
 {

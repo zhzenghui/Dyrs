@@ -7,7 +7,76 @@
 //
 
 #import "ZHDBControl.h"
+#import "FMDatabase.h"
+
+ZHDBControl *instance;
 
 @implementation ZHDBControl
+
+
+
++ (ZHDBControl *)share
+{
+    if (instance == nil)
+    {
+        instance = [[ZHDBControl alloc] init];
+    }
+    
+    return instance;
+}
+
+
+- (void)createTable:(NSString *)sql database:(FMDatabase *)_db
+{
+    
+    //    create table
+    if ([_db open]) {
+        
+        
+        NSArray * commands = [sql componentsSeparatedByString:@";"];
+        for(NSString * sqlString in commands)
+        {
+            BOOL res = [_db executeUpdate:sqlString];
+            if (!res) {
+                DLog(@"error  %@", sqlString);
+            } else {
+                DLog(@"succ ");
+            }
+            
+        }
+        
+        [_db close];
+    }
+    else {
+        DLog(@"error when open db");
+    }
+}
+
+
+- (BOOL)checkDB
+{
+
+    NSString *dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
+    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"dyrs_sqlite" ofType:@"sql"];
+    NSString *sqlString = [[NSString alloc] initWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
+    
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
+        
+        FMDatabase *db = [[FMDatabase alloc ]initWithPath:dbPath] ;
+        
+        if ([db open]) {
+            [self createTable:sqlString database:db];
+        }
+        DLog(@"create db talbe --- YES");
+
+        return YES;
+    }
+    else {
+        return YES;
+    }
+
+    return NO;
+}
 
 @end

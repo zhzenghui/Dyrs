@@ -14,11 +14,15 @@
 
 #import "PendingOperations.h"
 #import "ImageDownloader.h"
+#import "ZHPassDataJSON.h"
 
-@interface ZHUpdateViewController : UIViewController<ImageDownloaderDelegate>
+
+@interface ZHUpdateViewController : UIViewController<ImageDownloaderDelegate, ZHPassDataJSONDelegate>
 {
     NSDate *startDate ;
     NSDate *endDate;
+    
+    UILabel *textLabel;
 }
 
 

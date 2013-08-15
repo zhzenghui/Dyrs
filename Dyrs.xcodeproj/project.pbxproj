@@ -56,6 +56,9 @@
 		1054FB2217BA58FA0017B1AC /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2117BA58FA0017B1AC /* ImageDownloader.m */; };
 		1054FB2517BA5A3F0017B1AC /* PendingOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2417BA5A3F0017B1AC /* PendingOperations.m */; };
 		1054FB2817BA5D290017B1AC /* ZHUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2717BA5D290017B1AC /* ZHUpdateViewController.m */; };
+		10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */; };
+		10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */ = {isa = PBXBuildFile; fileRef = 10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */; };
+		10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +184,11 @@
 		1054FB2417BA5A3F0017B1AC /* PendingOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingOperations.m; sourceTree = "<group>"; };
 		1054FB2617BA5D290017B1AC /* ZHUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHUpdateViewController.h; sourceTree = "<group>"; };
 		1054FB2717BA5D290017B1AC /* ZHUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHUpdateViewController.m; sourceTree = "<group>"; };
+		10B4D39417BCBA0E00C4F6A0 /* ZHFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFileCache.h; sourceTree = "<group>"; };
+		10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFileCache.m; sourceTree = "<group>"; };
+		10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dyrs_sqlite.sql; path = ViewController/dyrs_sqlite.sql; sourceTree = "<group>"; };
+		10B4D39B17BCC51100C4F6A0 /* ZHDBControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDBControl.h; sourceTree = "<group>"; };
+		10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDBControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +266,7 @@
 		1038576017B8B60B00A8BCD5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */,
 				1038576117B8B60B00A8BCD5 /* Dyrs-Info.plist */,
 				1038576217B8B60B00A8BCD5 /* InfoPlist.strings */,
 				1038576517B8B60B00A8BCD5 /* main.m */,
@@ -382,6 +391,10 @@
 				103857D717B8B63E00A8BCD5 /* String.h */,
 				103857D917B8B63E00A8BCD5 /* ZHPassDataJSON.h */,
 				103857DA17B8B63E00A8BCD5 /* ZHPassDataJSON.m */,
+				10B4D39417BCBA0E00C4F6A0 /* ZHFileCache.h */,
+				10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */,
+				10B4D39B17BCC51100C4F6A0 /* ZHDBControl.h */,
+				10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -486,6 +499,7 @@
 				1038577017B8B60B00A8BCD5 /* Default-568h@2x.png in Resources */,
 				1038577617B8B60B00A8BCD5 /* ZHViewController.xib in Resources */,
 				103857F117B8B63E00A8BCD5 /* ZHMainViewController.xib in Resources */,
+				10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +543,8 @@
 				1054FB2217BA58FA0017B1AC /* ImageDownloader.m in Sources */,
 				1054FB2517BA5A3F0017B1AC /* PendingOperations.m in Sources */,
 				1054FB2817BA5D290017B1AC /* ZHUpdateViewController.m in Sources */,
+				10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */,
+				10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #import "ImageDownloader.h"
+#import "ZHFileCache.h"
 
 
 // 1: Declare a private interface, so you can change the attributes of instance variables to read-write.
@@ -54,6 +55,15 @@
         
         if (imageData) {
             self.photoRecord.status = 2;
+            
+            
+            ZHFileCache *zfc = [[ZHFileCache alloc] init];
+            
+            [zfc saveFile];
+            
+            [zfc release];
+            
+            
 //            UIImage *downloadedImage = [UIImage imageWithData:imageData];
             
 //            1.存储到本地
@@ -61,6 +71,9 @@
 //            2.更新数据库
             
 //            self.photoRecord.image = downloadedImage;
+            
+            
+            
         }
         else {
 //            self.photoRecord.failed = YES;
