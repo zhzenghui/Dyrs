@@ -9,7 +9,7 @@
 #import "ZHDBControl.h"
 #import "FMDatabase.h"
 
-ZHDBControl *instance;
+ZHDBControl *instanceControl;
 
 @implementation ZHDBControl
 
@@ -17,12 +17,12 @@ ZHDBControl *instance;
 
 + (ZHDBControl *)share
 {
-    if (instance == nil)
+    if (instanceControl == nil)
     {
-        instance = [[ZHDBControl alloc] init];
+        instanceControl = [[ZHDBControl alloc] init];
     }
     
-    return instance;
+    return instanceControl;
 }
 
 

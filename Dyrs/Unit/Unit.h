@@ -57,6 +57,18 @@
 
 
 
+
+#define SDWIRetain(__v) ([__v retain]);
+#define SDWIReturnRetained SDWIRetain
+
+#define SDWIRelease(__v) ([__v release]);
+#define SDWISafeRelease(__v) ([__v release], __v = nil);
+#define SDWISuperDealoc [super dealloc];
+
+
+
+
+
 //  淘宝
 
 #define KTaoBaoAppKey @"21584394"

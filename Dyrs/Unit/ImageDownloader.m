@@ -59,7 +59,7 @@
             
             ZHFileCache *zfc = [[ZHFileCache alloc] init];
             
-            [zfc saveFile];
+            [zfc saveFile:imageData image:self.photoRecord];
             
             [zfc release];
             

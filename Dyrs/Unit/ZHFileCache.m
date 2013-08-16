@@ -7,15 +7,19 @@
 //
 
 
-#define SDWIRetain(__v) ([__v retain]);
-#define SDWIReturnRetained SDWIRetain
 
-#define SDWIRelease(__v) ([__v release]);
-#define SDWISafeRelease(__v) ([__v release], __v = nil);
-#define SDWISuperDealoc [super dealloc];
+
+
+#define KDirMaxNum 500
+
+
+
 
 
 #import "ZHFileCache.h"
+#import "ZHdyrsModel.h"
+#import "NSString+MD5.h"
+
 
 ZHFileCache *instance;
 
@@ -35,10 +39,141 @@ ZHFileCache *instance;
 }
 
 
-- (void)saveFile
+- (NSString *)md5
 {
+    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+    NSString *timeSp = [NSString stringWithFormat:@"%f", interval];
+    
+    return [timeSp md5];
+}
+
+- (void)createDirectory:(NSString *)diskPath
+{
+    if (![[NSFileManager defaultManager] fileExistsAtPath:diskPath])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:diskPath
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:NULL];
+    }
     
 }
+
+
+- (NSString *)checkFilesPath
+{
+    
+    
+    NSFileManager* fm=[NSFileManager defaultManager];
+    NSArray *paths = [fm contentsOfDirectoryAtPath:diskCachePath error:nil];
+    
+    if ([paths count] == 0) {
+        
+        NSString *currentPath = [diskCachePath stringByAppendingPathComponent:[self md5]];
+        
+        [self createDirectory:currentPath];
+        return currentPath;
+    }
+    
+    
+    
+    NSString *lastPathName = [paths objectAtIndex:([paths count] -1)];
+    NSString *lastPath = [diskCachePath stringByAppendingPathComponent:lastPathName];
+    
+
+//    /files  下的dir  个数
+
+//    目录中的 file 个数
+    NSArray *filesPath = [fm subpathsAtPath:lastPath];
+
+//    >1  创建新文件夹
+    if ([filesPath count] >= KDirMaxNum) {
+        
+        
+
+                
+        NSString *str = [NSString stringWithFormat:@"/%@", [self md5]];
+        
+        
+        
+        [self createDirectory:[diskCachePath stringByAppendingPathComponent:str]];
+        
+        return [diskCachePath stringByAppendingPathComponent:str];
+    }
+    else {
+        
+        return lastPath;
+    }
+
+
+}
+
+
+- (void)saveFile:(NSData *)data filePath:(NSString *)filePath
+{
+
+    //    save  文件
+    NSError *error = nil;
+    
+    [data writeToFile:filePath options:NSDataWritingWithoutOverwriting error:&error];
+    
+    if (error ==nil) {
+        DLog(@"保存成功，name:%@", filePath);
+    }
+    else {
+        DLog(@"保存成功，name:%@", filePath);
+    }
+}
+
+
+/*
+ *  保存文件
+ *
+ *  建立文件树系统，每个文件夹放500张图片，
+ *  超过500， 创建新文件夹
+ */
+- (void)saveFile:(NSData *)data image:(Images *)image
+{
+    
+//      file name
+    NSArray *splitArray = [image.url componentsSeparatedByString:@"/"];
+    NSString *fileName = [splitArray objectAtIndex:[splitArray count] -1] ;
+
+//    检查 文件是否超过五百
+
+    NSString *savePath = [self checkFilesPath];
+
+//    
+    NSString *saveAllPath  = [savePath stringByAppendingPathComponent:fileName];
+    [self saveFile:data filePath:saveAllPath];
+    
+    
+    
+}
+
+
+- (id)file:(NSString *)fileName
+{
+    
+//    所有/files子目录
+    NSArray *paths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:diskCachePath error:nil];
+
+//    
+    for (int i = 0; i<[paths count]; i++) {
+                
+        NSString *filePath = [NSString stringWithFormat:@"%@/%@/%@", diskCachePath, [paths objectAtIndex:i], fileName];
+        NSData *data = [[NSData alloc] initWithContentsOfFile:filePath];
+        
+        if (data) {
+            return data;
+        }
+        
+    }
+
+    return nil;
+    
+}
+
 
 - (id)init
 {

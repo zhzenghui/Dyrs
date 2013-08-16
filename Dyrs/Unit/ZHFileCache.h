@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class Images;
 @interface ZHFileCache : NSObject
 {
     
@@ -18,7 +19,9 @@
 }
 
 
-- (void)saveFile;
+- (void)saveFile:(NSData *)data image:(Images *)image;
+
+- (id)file:(NSString *)fileName;
 
 + (ZHFileCache *)share;
 

@@ -56,6 +56,7 @@
 		1054FB2217BA58FA0017B1AC /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2117BA58FA0017B1AC /* ImageDownloader.m */; };
 		1054FB2517BA5A3F0017B1AC /* PendingOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2417BA5A3F0017B1AC /* PendingOperations.m */; };
 		1054FB2817BA5D290017B1AC /* ZHUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2717BA5D290017B1AC /* ZHUpdateViewController.m */; };
+		1093855617BE2FD9000E8C0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1093855517BE2FD9000E8C0E /* NSString+MD5.m */; };
 		10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */; };
 		10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */ = {isa = PBXBuildFile; fileRef = 10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */; };
 		10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */; };
@@ -185,6 +186,8 @@
 		1054FB2417BA5A3F0017B1AC /* PendingOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingOperations.m; sourceTree = "<group>"; };
 		1054FB2617BA5D290017B1AC /* ZHUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHUpdateViewController.h; sourceTree = "<group>"; };
 		1054FB2717BA5D290017B1AC /* ZHUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHUpdateViewController.m; sourceTree = "<group>"; };
+		1093855417BE2FD9000E8C0E /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		1093855517BE2FD9000E8C0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		10B4D39417BCBA0E00C4F6A0 /* ZHFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFileCache.h; sourceTree = "<group>"; };
 		10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFileCache.m; sourceTree = "<group>"; };
 		10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dyrs_sqlite.sql; path = ViewController/dyrs_sqlite.sql; sourceTree = "<group>"; };
@@ -376,6 +379,8 @@
 		103857CC17B8B63E00A8BCD5 /* Unit */ = {
 			isa = PBXGroup;
 			children = (
+				1093855417BE2FD9000E8C0E /* NSString+MD5.h */,
+				1093855517BE2FD9000E8C0E /* NSString+MD5.m */,
 				1054FB2017BA58FA0017B1AC /* ImageDownloader.h */,
 				1054FB2117BA58FA0017B1AC /* ImageDownloader.m */,
 				1054FB2317BA5A3F0017B1AC /* PendingOperations.h */,
@@ -549,6 +554,7 @@
 				1054FB2817BA5D290017B1AC /* ZHUpdateViewController.m in Sources */,
 				10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */,
 				10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */,
+				1093855617BE2FD9000E8C0E /* NSString+MD5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

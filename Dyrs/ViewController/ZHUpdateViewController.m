@@ -8,7 +8,7 @@
 
 #import "ZHUpdateViewController.h"
 #import "FMDatabase.h"
-
+#import "ZHFileCache.h"
 
 @interface ZHUpdateViewController ()
 
@@ -26,7 +26,6 @@
 
 - (void)imageDownloaderDidFinish:(ImageDownloader *)downloader
 {
-    DLog(@"%d", downloader.photoRecord.status);
     DLog(@"%@ : %d", downloader.photoRecord.name , [self.pendingOperations.downloadsInProgress count]);
 
     [self.pendingOperations.downloadsInProgress removeObjectForKey:downloader.photoRecord.name];
@@ -112,7 +111,7 @@
 {
 
     
-    NSString *userString = @"{\"status\": \"100\",\"data\": {\"user\": [{\"sqltype\": \"i\",\"sqldata\": {\"user_id\": 1,\"name\": \"zne\",\"gender\":1,\"account\": \"zhzne\",\"password\": \"123456\",\"type\": 1,\"create_time\": \"2013-8-13\",\"status\": 0,\"dept_id\": 1}}],\"images\": [{\"sqltype\": \"i\",\"sqldata\": {\"id\": 1,\"name\": \"pic1.jpg\",\"url\": \"https://www.google.com.hk/images/nav_logo143.png\",\"object_type\": 0,\"object_id\": 0,\"status\": 0,\"create_time\": \"2013-8-13\"}}]}}";
+    NSString *userString = @"{\"status\": \"100\",\"data\": {\"user\": [{\"sqltype\": \"i\",\"sqldata\": {\"user_id\": 1,\"name\": \"zne\",\"gender\":1,\"account\": \"zhzne\",\"password\": \"123456\",\"type\": 1,\"create_time\": \"2013-8-13\",\"status\": 0,\"dept_id\": 1}}],\"images\": [{\"sqltype\": \"i\",\"sqldata\": {\"id\": 1,\"name\": \"pic1.jpg\",\"url\": \"http://www.baidu.com/img/bdlogo.gif\",\"object_type\": 0,\"object_id\": 0,\"status\": 0,\"create_time\": \"2013-8-13\"}}]}}";
 
     NSDictionary *statueDict  = (NSDictionary *)[userString objectFromJSONString] ;
     
@@ -170,7 +169,19 @@
     button3.frame = CGRectMake(20, 300, 280, 50);
     [button3 addTarget:self  action:@selector(loadImage) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    
+    
+    
+    UIImage *image = [UIImage imageWithData:[[ZHFileCache share] file:@"bdlogo.gif"]];
+
+    [button setImage:image forState:UIControlStateNormal];
+
     [self.view addSubview:button3];
+
+    
+    
+    
     
     
     textLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 300, 280, 50)];
