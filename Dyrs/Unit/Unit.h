@@ -57,6 +57,12 @@
 
 
 
+#define KProjectNameHaro @"haro"
+#define KProjectNameDyrs @"Dyrs"
+
+#define KCurrentProjectName @"haro"
+
+
 
 #define SDWIRetain(__v) ([__v retain]);
 #define SDWIReturnRetained SDWIRetain
@@ -66,7 +72,8 @@
 #define SDWISuperDealoc [super dealloc];
 
 
-
+#define KisHaro [KCurrentProjectName isEqualToString:KProjectNameHaro]
+#define KisDyrs [KCurrentProjectName isEqualToString:KProjectNameDyrs]
 
 
 //  淘宝

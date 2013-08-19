@@ -96,6 +96,8 @@ static NetWork *netWork;
     components.month=1;
     NSDate *expiryDate=[calendar dateByAddingComponents:components toDate:installedDate options:0];
     
+    [components release];
+    [calendar release];
     NSLog(@"Ins : %@, Exp : %@", installedDate, expiryDate);
 
     

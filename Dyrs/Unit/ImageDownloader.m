@@ -13,13 +13,15 @@
 // 1: Declare a private interface, so you can change the attributes of instance variables to read-write.
 @interface ImageDownloader ()
 @property (nonatomic, readwrite, strong) NSIndexPath *indexPathInTableView;
-@property (nonatomic, readwrite, strong) Images *photoRecord;
+@property (nonatomic, readwrite, strong) Images *imageRecord;
+@property (nonatomic, readwrite, strong) Picture *pictureRecord;
+
 @end
 
 
 @implementation ImageDownloader
 @synthesize delegate = _delegate;
-@synthesize photoRecord = _photoRecord;
+@synthesize imageRecord = _imageRecord;
 
 #pragma mark -
 #pragma mark - Life Cycle
@@ -29,9 +31,46 @@
     if (self = [super init]) {
         // 2: Set the properties.
         self.delegate = theDelegate;
-        self.photoRecord = record;
+        self.imageRecord = record;
     }
     return self;
+}
+
+
+- (id)initWithPictureRecord:(Picture *)record  delegate:(id<ImageDownloaderDelegate>)theDelegate {
+    
+    if (self = [super init]) {
+        // 2: Set the properties.
+        self.delegate = theDelegate;
+        self.pictureRecord = record;
+    }
+    return self;
+}
+
+
+- (void)haroFinish:(NSData *)data picture:(Picture *)picture
+{
+    
+    ZHFileCache *zfc = [[ZHFileCache alloc] init];
+    
+    [zfc saveFile:data fileName:picture.name];
+    
+    
+    [zfc release];
+}
+
+- (void)dyrsFinish:(NSData *)data image:(Images *)image
+{
+    self.imageRecord.status = 2;
+    
+    
+    ZHFileCache *zfc = [[ZHFileCache alloc] init];
+    
+    [zfc saveFile:data image:self.imageRecord];
+    
+    
+    [zfc release];
+    
 }
 
 #pragma mark -
@@ -46,7 +85,7 @@
         if (self.isCancelled)
             return;
         
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString: self.photoRecord.url]];
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString: self.imageRecord.url]];
         
         if (self.isCancelled) {
             imageData = nil;
@@ -54,31 +93,23 @@
         }
         
         if (imageData) {
-            self.photoRecord.status = 2;
-            
-            
-            ZHFileCache *zfc = [[ZHFileCache alloc] init];
-            
-            [zfc saveFile:imageData image:self.photoRecord];
-            
-            [zfc release];
-            
-            
-//            UIImage *downloadedImage = [UIImage imageWithData:imageData];
-            
-//            1.存储到本地
-            
-//            2.更新数据库
-            
-//            self.photoRecord.image = downloadedImage;
-            
-            
+    
+            if (KisHaro) {
+                [self haroFinish:imageData picture:self.pictureRecord];
+
+            }
+            else if (KisDyrs) {
+
+                [self dyrsFinish:imageData image:self.imageRecord];
+
+            }
             
         }
         else {
-//            self.photoRecord.failed = YES;
+            
         }
         
+        [imageData release];
         imageData = nil;
         
         if (self.isCancelled)

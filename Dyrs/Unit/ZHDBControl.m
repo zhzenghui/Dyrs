@@ -38,7 +38,7 @@ ZHDBControl *instanceControl;
         {
             BOOL res = [_db executeUpdate:sqlString];
             if (!res) {
-                DLog(@"error  %@", sqlString);
+                DLog(@"error===========  %@", sqlString);
             } else {
                 DLog(@"succ ");
             }
@@ -48,7 +48,7 @@ ZHDBControl *instanceControl;
         [_db close];
     }
     else {
-        DLog(@"error when open db");
+        DLog(@"error=========== when open db");
     }
 }
 
@@ -56,23 +56,41 @@ ZHDBControl *instanceControl;
 - (BOOL)checkDB
 {
 
-    NSString *dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
-    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"dyrs_sqlite" ofType:@"sql"];
-    NSString *sqlString = [[NSString alloc] initWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
+    NSString *projectName = nil;
+    NSString *file  = nil;
     
+    if ([KProjectNameHaro isEqualToString:@"haro"]) {
+        projectName = [NSString stringWithFormat:@"haro.db"];
+        file = [NSString stringWithFormat:@"haro_sqlite-sql"];
+    }
+    else {
+        projectName = [NSString stringWithFormat:@"dyrs.db"];
+        file = [NSString stringWithFormat:@"dyrs_sqlite"];
+    }
+    
+    
+    NSString *dbPath = [KDocumentDirectory stringByAppendingPathComponent:projectName];
+
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
+        NSString *fileName = [[NSBundle mainBundle] pathForResource:file ofType:@"sql"];
+        NSString *sqlString = [[NSString alloc] initWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
         
-        FMDatabase *db = [[FMDatabase alloc ]initWithPath:dbPath] ;
+        FMDatabase *db = [[[FMDatabase alloc ]initWithPath:dbPath] autorelease];
         
         if ([db open]) {
             [self createTable:sqlString database:db];
         }
+        
+        
+        [sqlString release];
+
         DLog(@"create db talbe --- YES");
 
         return YES;
     }
     else {
+
         return YES;
     }
 

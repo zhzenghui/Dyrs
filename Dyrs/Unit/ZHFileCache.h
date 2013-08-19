@@ -20,6 +20,7 @@
 
 
 - (void)saveFile:(NSData *)data image:(Images *)image;
+- (void)saveFile:(NSData *)data fileName:(NSString *)fileName;
 
 - (id)file:(NSString *)fileName;
 

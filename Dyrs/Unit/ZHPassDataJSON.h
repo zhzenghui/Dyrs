@@ -8,6 +8,7 @@
 
 
 typedef enum {
+//    dyrs
     AccessoriesTable     = -1,
     CasesTable           = 1,
     CategoryTable        = 2,
@@ -17,7 +18,21 @@ typedef enum {
     ImagesTable          = 6,
     MemberTable          = 7,
     UserTable            = 8,
-    ValuesTable          = 9
+    ValuesTable          = 9,
+    
+//    haro
+    CategoryHaroTable,
+    ContentTable,
+    CustomTable,
+    DistrictTable,
+    FavoriteTable,
+    LayerTable,
+    PictureTable,
+    ProductTable,
+    SceneTable,
+    UserHaroTable,
+    User_loginTable
+    
 } _TableName;
 
 

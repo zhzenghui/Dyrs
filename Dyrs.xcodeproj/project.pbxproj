@@ -53,12 +53,14 @@
 		1038582A17B8D42900A8BCD5 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1038582317B8D42900A8BCD5 /* FMDatabaseQueue.m */; };
 		1038582C17B8D42900A8BCD5 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1038582617B8D42900A8BCD5 /* FMResultSet.m */; };
 		1038582E17B8D44B00A8BCD5 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1038582D17B8D44B00A8BCD5 /* libsqlite3.0.dylib */; };
+		104BCD4117C1D68900375424 /* dyrs_sqlite.sql in Resources */ = {isa = PBXBuildFile; fileRef = 104BCD3F17C1D68900375424 /* dyrs_sqlite.sql */; };
+		104BCD4217C1D68900375424 /* haro_sqlite-sql.sql in Resources */ = {isa = PBXBuildFile; fileRef = 104BCD4017C1D68900375424 /* haro_sqlite-sql.sql */; };
+		104BCD4617C1F6B700375424 /* ZHaroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 104BCD4417C1DBFA00375424 /* ZHaroModel.m */; };
 		1054FB2217BA58FA0017B1AC /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2117BA58FA0017B1AC /* ImageDownloader.m */; };
 		1054FB2517BA5A3F0017B1AC /* PendingOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2417BA5A3F0017B1AC /* PendingOperations.m */; };
 		1054FB2817BA5D290017B1AC /* ZHUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1054FB2717BA5D290017B1AC /* ZHUpdateViewController.m */; };
 		1093855617BE2FD9000E8C0E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1093855517BE2FD9000E8C0E /* NSString+MD5.m */; };
 		10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */; };
-		10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */ = {isa = PBXBuildFile; fileRef = 10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */; };
 		10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */; };
 		10B4D39F17BCEA8400C4F6A0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 10B4D39E17BCEA8400C4F6A0 /* README.md */; };
 /* End PBXBuildFile section */
@@ -180,6 +182,10 @@
 		1038582517B8D42900A8BCD5 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		1038582617B8D42900A8BCD5 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		1038582D17B8D44B00A8BCD5 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		104BCD3F17C1D68900375424 /* dyrs_sqlite.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dyrs_sqlite.sql; sourceTree = "<group>"; };
+		104BCD4017C1D68900375424 /* haro_sqlite-sql.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "haro_sqlite-sql.sql"; sourceTree = "<group>"; };
+		104BCD4317C1DBFA00375424 /* ZHaroModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHaroModel.h; sourceTree = "<group>"; };
+		104BCD4417C1DBFA00375424 /* ZHaroModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHaroModel.m; sourceTree = "<group>"; };
 		1054FB2017BA58FA0017B1AC /* ImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloader.h; sourceTree = "<group>"; };
 		1054FB2117BA58FA0017B1AC /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
 		1054FB2317BA5A3F0017B1AC /* PendingOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingOperations.h; sourceTree = "<group>"; };
@@ -190,7 +196,6 @@
 		1093855517BE2FD9000E8C0E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		10B4D39417BCBA0E00C4F6A0 /* ZHFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHFileCache.h; sourceTree = "<group>"; };
 		10B4D39517BCBA0E00C4F6A0 /* ZHFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHFileCache.m; sourceTree = "<group>"; };
-		10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dyrs_sqlite.sql; path = ViewController/dyrs_sqlite.sql; sourceTree = "<group>"; };
 		10B4D39B17BCC51100C4F6A0 /* ZHDBControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDBControl.h; sourceTree = "<group>"; };
 		10B4D39C17BCC51100C4F6A0 /* ZHDBControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDBControl.m; sourceTree = "<group>"; };
 		10B4D39E17BCEA8400C4F6A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -221,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				1038575F17B8B60B00A8BCD5 /* Dyrs */,
+				104BCD3E17C1D68900375424 /* Resouces */,
 				1038575817B8B60B00A8BCD5 /* Frameworks */,
 				1038575717B8B60B00A8BCD5 /* Products */,
 			);
@@ -271,7 +277,6 @@
 		1038576017B8B60B00A8BCD5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				10B4D39817BCC4AE00C4F6A0 /* dyrs_sqlite.sql */,
 				1038576117B8B60B00A8BCD5 /* Dyrs-Info.plist */,
 				1038576217B8B60B00A8BCD5 /* InfoPlist.strings */,
 				10B4D39E17BCEA8400C4F6A0 /* README.md */,
@@ -372,6 +377,8 @@
 				103857C917B8B63E00A8BCD5 /* Users.m */,
 				103857CA17B8B63E00A8BCD5 /* ZHdyrsModel.h */,
 				103857CB17B8B63E00A8BCD5 /* ZHdyrsModel.m */,
+				104BCD4317C1DBFA00375424 /* ZHaroModel.h */,
+				104BCD4417C1DBFA00375424 /* ZHaroModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -449,6 +456,16 @@
 			path = FMDB;
 			sourceTree = "<group>";
 		};
+		104BCD3E17C1D68900375424 /* Resouces */ = {
+			isa = PBXGroup;
+			children = (
+				104BCD3F17C1D68900375424 /* dyrs_sqlite.sql */,
+				104BCD4017C1D68900375424 /* haro_sqlite-sql.sql */,
+			);
+			name = Resouces;
+			path = Dyrs/Resouces;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -507,8 +524,9 @@
 				1038577017B8B60B00A8BCD5 /* Default-568h@2x.png in Resources */,
 				1038577617B8B60B00A8BCD5 /* ZHViewController.xib in Resources */,
 				103857F117B8B63E00A8BCD5 /* ZHMainViewController.xib in Resources */,
-				10B4D39917BCC4AE00C4F6A0 /* dyrs_sqlite.sql in Resources */,
 				10B4D39F17BCEA8400C4F6A0 /* README.md in Resources */,
+				104BCD4117C1D68900375424 /* dyrs_sqlite.sql in Resources */,
+				104BCD4217C1D68900375424 /* haro_sqlite-sql.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +573,7 @@
 				10B4D39617BCBA0E00C4F6A0 /* ZHFileCache.m in Sources */,
 				10B4D39D17BCC51100C4F6A0 /* ZHDBControl.m in Sources */,
 				1093855617BE2FD9000E8C0E /* NSString+MD5.m in Sources */,
+				104BCD4617C1F6B700375424 /* ZHaroModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

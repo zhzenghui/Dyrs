@@ -63,7 +63,6 @@ ZHFileCache *instance;
 - (NSString *)checkFilesPath
 {
     
-    
     NSFileManager* fm=[NSFileManager defaultManager];
     NSArray *paths = [fm contentsOfDirectoryAtPath:diskCachePath error:nil];
     
@@ -117,6 +116,7 @@ ZHFileCache *instance;
     
     [data writeToFile:filePath options:NSDataWritingWithoutOverwriting error:&error];
     
+//    #quenstion#
     if (error ==nil) {
         DLog(@"保存成功，name:%@", filePath);
     }
@@ -146,10 +146,24 @@ ZHFileCache *instance;
 //    
     NSString *saveAllPath  = [savePath stringByAppendingPathComponent:fileName];
     [self saveFile:data filePath:saveAllPath];
+
+}
+
+
+- (void)saveFile:(NSData *)data fileName:(NSString *)fileName
+{
     
     
+    //    检查 文件是否超过五百
+    
+    NSString *savePath = [self checkFilesPath];
+    
+    //
+    NSString *saveAllPath  = [savePath stringByAppendingPathComponent:fileName];
+    [self saveFile:data filePath:saveAllPath];
     
 }
+
 
 
 - (id)file:(NSString *)fileName
@@ -162,7 +176,7 @@ ZHFileCache *instance;
     for (int i = 0; i<[paths count]; i++) {
                 
         NSString *filePath = [NSString stringWithFormat:@"%@/%@/%@", diskCachePath, [paths objectAtIndex:i], fileName];
-        NSData *data = [[NSData alloc] initWithContentsOfFile:filePath];
+        NSData *data = [[[NSData alloc] initWithContentsOfFile:filePath] autorelease];
         
         if (data) {
             return data;

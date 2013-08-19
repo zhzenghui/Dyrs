@@ -8,8 +8,10 @@
 
 #import "ZHPassDataJSON.h"
 
+
 #import "ZHdyrsModel.h"
 #import "ZHDBControl.h"
+
 
 #define FMDBQuickCheck(SomeBool) { if (!(SomeBool)) { NSLog(@"Failure on line %d", __LINE__); abort(); } }
 
@@ -27,7 +29,17 @@
         
         if ([[ZHDBControl share] checkDB]) {
             
-            NSString *dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
+            
+            NSString *dbPath = nil;
+            
+            if (KisDyrs) {
+                dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"dyrs.db"];
+            }
+            else {
+                dbPath = [KDocumentDirectory stringByAppendingPathComponent:@"haro.db"];
+
+            }
+
             db = [[FMDatabase alloc ]initWithPath:dbPath] ;
             
         }
@@ -308,6 +320,82 @@ switch (tableName) {
                          WHERE id = :id;"];
             break;
         }
+        case UserHaroTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update User set \
+                         user_id=:user_id, district_id=:district_id, namer=:namer, email=:email, password=:password, type=:type, create_time=:create_time,  statu=:status \
+                         \
+                         WHERE user_id = :user_id;"];
+            break;
+        }
+        case ProductTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Product set \
+                         product_id=:product_id, cate_id=:cate_id, series=:series, no=:no, color=:color, info_cne=:info_cn, info_en=:info_en,  price=:price, standard=:standard, wood=:wood, process=:process, deal=:deal,\
+                         level=:level, array_order=:array_order, status=:status, create_time=:create_time\
+                         \
+                         WHERE product_id = :product_id;"];
+            break;
+        }
+        case CategoryHaroTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Category set \
+                         cate_id=:cate_id, name=:name, array_order=:array_order, status=:status, typed=:type, \
+                         \
+                         WHERE cate_id = :cate_id;"];
+            break;
+        }
+        case PictureTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Picture set \
+                         picture_id=:picture_id, product_id=:product_id, cate_id=:cate_id, type=:type, text=:text, name=:name \
+                         \
+                         WHERE picture_id = :picture_id;"];
+            break;
+        }
+        case SceneTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Scene set \
+                         scene_id=:scene_id, name=:name, status=:status, array_order=:array_order \
+                         \
+                         WHERE scene_id = :scene_id;"];
+            break;
+        }
+        case LayerTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Layer set \
+                         layer_id=:layer_id, scene_id=:scene_id, name=:name, level=:level, status=:status, array_order=:array_order \
+                         \
+                         WHERE layer_id = :layer_id;"];
+            break;
+        }
+        case ContentTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Content set \
+                         content_id=:content_id, product_id=:product_id, scene_id=:scene_id, layer_id=:layer_id, dir=:dir, name=:name, status=:status,  type=:type, array_order=:array_order \
+                         \
+                         WHERE content_id = :content_id;"];
+            break;
+        }
+        case CustomTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Custom set \
+                         custom_id=:custom_id, province_id=:province_id, dealer_id=:dealer_id, shop_id=:shop_id, user_id=:user_id, name=:name, tel=:tel,  address=:address, remark=:remark, create_time=:create_time, array_order=:array_order, time=:time, budget=:budget,\
+                         status=:status \
+                         \
+                         WHERE custom_id = :custom_id;"];
+            break;
+        }
+        case FavoriteTable:
+        {
+            sqlString = [NSString stringWithFormat:@"update Favorite set \
+                         custom_id=:custom_id, cate_id=:cate_id, product_id=:product_id, create_time=:create_time \
+                         \
+                         WHERE custom_id = :custom_id;"];
+            break;
+        }
+
+            
         default:
             break;
     }
@@ -325,6 +413,7 @@ switch (tableName) {
     NSString *sqlString = nil;
     
     switch (tableName) {
+//            dyrs
         case UserTable:
         {
             sqlString = [NSString stringWithFormat:@"INSERT INTO user (user_id, name, gender, account, password, type, create_time, status, dept_id) VALUES (:user_id, :name, :gender, :account, :password, :type, :create_time, :status, :dept_id)"];
@@ -377,6 +466,55 @@ switch (tableName) {
             sqlString = [NSString stringWithFormat:@"INSERT INTO Accessories (id, title, info, cate_id, status, create_time) VALUES (:id, :title, :info, :cate_id, :status, :create_time)"];
             break;
         }
+//            haro
+        case ProductTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Product (product_id, cate_id, no, color, info_cn, info_en, price, standard, wood, process, deal, level, array_order, status, create_time) VALUES (:product_id, :cate_id, no, :color, :info_cn, :info_en, :price, :standard, :wood, :process, :deal,:level, :array_order, :status, :create_time)"];
+            break;
+        }
+        case CategoryHaroTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Category (cate_id, name, array_order, status, type) VALUES (:cate_id, :name, :array_order, :status, :type)"];
+            break;
+        }
+        case PictureTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Picture (picture_id, product_id, cate_id, type, text, name) VALUES (:picture_id, :product_id, :cate_id, :type, :text, :name)"];
+            break;
+        }
+        case SceneTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Scene (scene_id, name, status, array_order) VALUES (:scene_id, :name, :status, :array_order)"];
+            break;
+        }
+        case LayerTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO layer (layer_id, scene_id, name, level, status, array_order) VALUES (:layer_id, :scene_id, :name, :level, :status, :array_order)"];
+            break;
+        }
+            
+        case ContentTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Content (content_id, product_id, scene_id, layer_id, dir,  name, status, type, array_order) VALUES (:content_id, :product_id, :scene_id, :layer_id, dir,  :name, :status, :type, :array_order)"];
+            break;
+        }
+            
+            
+        case CustomTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO Custom (custom_id, province_id, dealer_id, shop_id, user_id, name, tel, address, remark, create_time, array_order, time, budget, status) VALUES (:custom_id, :province_id, :dealer_id, :shop_id, :user_id, :name, :tel, :address, :remark, :create_time, :array_order, :time, :budget, :status)"];
+            break;
+        }
+        case UserHaroTable:
+        {
+            sqlString = [NSString stringWithFormat:@"INSERT INTO User (user_id, district_id, name, email, password, type, create_time, status) VALUES (:user_id, :district_id, :name, email, :password, :type,  :create_time,:status)"];
+            break;
+        }
+//        case FavoriteTable:
+//        {
+//            sqlString = [NSString stringWithFormat:@"INSERT INTO Favorite (custom_id, cate_id, name, email, password, type, create_time, status) VALUES (:user_id, :district_id, :name, email, :password, :type,  :create_time,:status)"];
+//            break;
+//        }
         default:
             break;
     }
@@ -431,7 +569,7 @@ switch (tableName) {
         FMDBQuickCheck(rc);
         
         if (!rc) {
-            NSLog(@"ERROR: %d - %@", db.lastErrorCode, db.lastErrorMessage);
+            NSLog(@"ERROR==========: %d - %@", db.lastErrorCode, db.lastErrorMessage);
         }
         
         [db close];

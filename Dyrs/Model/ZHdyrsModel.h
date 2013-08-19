@@ -6,6 +6,11 @@
 //  Copyright (c) 2013年 zeng hui. All rights reserved.
 //
 
+
+
+//#ifdef KProjectNameDyrs
+
+
 #import <Foundation/Foundation.h>
 
 
@@ -190,3 +195,7 @@
 @interface ZHdyrsModel : NSObject
 
 @end
+
+
+//#endif
+

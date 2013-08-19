@@ -26,9 +26,9 @@
 
 - (void)imageDownloaderDidFinish:(ImageDownloader *)downloader
 {
-    DLog(@"%@ : %d", downloader.photoRecord.name , [self.pendingOperations.downloadsInProgress count]);
+    DLog(@"%@ : %d", downloader.imageRecord.name , [self.pendingOperations.downloadsInProgress count]);
 
-    [self.pendingOperations.downloadsInProgress removeObjectForKey:downloader.photoRecord.name];
+    [self.pendingOperations.downloadsInProgress removeObjectForKey:downloader.imageRecord.name];
     
     
     if ([self.pendingOperations.downloadsInProgress count] == 0) {
@@ -49,6 +49,7 @@
 
     NSMutableArray *dataArray = [dataToJson getAllUpdateImage ];
     
+    [dataToJson release];
     
     textLabel.text = [NSString stringWithFormat:@"%@ %d", @"下载数量 !!!", [dataArray count]];
 
@@ -75,7 +76,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"MyDatabase.db"];
+    NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"dyrs.db"];
     
     FMDatabase *db = [FMDatabase databaseWithPath:dbPath] ;
     if (![db open]) {
