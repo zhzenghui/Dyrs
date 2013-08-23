@@ -68,7 +68,7 @@
     }
     else {
        
-    
+       
         textLabel.text = [NSString stringWithFormat:@"第二步：下载文件数据！%@ %d", @"下载数量：", [dataArray count]];
 
         for (int i=0; i < dataArray.count; i++) {
