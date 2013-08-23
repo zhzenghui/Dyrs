@@ -26,6 +26,7 @@
 
 
 
+
 - (void)imageDownloaderDidFinish:(ImageDownloader *)downloader
 {
     DLog(@"%@ : %d", downloader.imageRecord.name , [self.pendingOperations.downloadsInProgress count]);
@@ -44,6 +45,7 @@
         textLabel.text = [NSString stringWithFormat:@"更新完成！"];
         fileNumTextLabel.text = [NSString stringWithFormat:@""];
         
+        [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
     }
 
 }
@@ -64,7 +66,7 @@
     if ([dataArray count] == 0) {
         textLabel.text = [NSString stringWithFormat:@"更新完成！"];
         fileNumTextLabel.text = [NSString stringWithFormat:@""];
-        
+        [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(loginSuccess) userInfo:nil repeats:NO];
     }
     else {
        
@@ -141,7 +143,6 @@
     [httpClient postPath:@"/HaroAdmin/update" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 
-
         NSString*jsonString = [[NSString alloc]initWithBytes:[responseObject bytes]length:[responseObject length] encoding:NSUTF8StringEncoding];
         NSDictionary *statueDict  = [jsonString objectFromJSONString] ;
 
@@ -149,13 +150,11 @@
         if ([[[statueDict objectForKey:@"status"] stringValue]isEqualToString:Statue_success]) {
 
             NSDictionary *dataDict = (NSDictionary *)[statueDict objectForKey:@"data"];
-            NSLog(@"%@", [[[dataDict objectForKey:@"product"] objectAtIndex:0] objectForKey:@"series"]);
-
+            
+            [KNSUserDefaults setValue:[dataDict objectForKey:KCurrentUser_version] forKey:KCurrentUser_version];
             textLabel.text = @"第一步：更新数据完成！";
             [self jsonToDB:dataDict];
-            
-            
-            
+
         }
 
         
@@ -215,7 +214,15 @@
 
 - (void)loginSuccess
 {
-    [self.view.superview removeFromSuperview];
+    
+    
+//    NSLog(@"%@", [KNSUserDefaults objectForKey:KCurrentUser_version]);
+//    NSMutableDictionary *userDict = [[User share] currentUser];
+//     
+//    [KNSUserDefaults setValue:userDict forKey:KCurrentUser];
+
+    
+//    [self.view.superview removeFromSuperview];
 }
 
 #pragma - view cycle
@@ -252,10 +259,11 @@
     
 
     
-    if ([[KNSUserDefaults objectForKey:KCurrentUser_version] isEqualToString:@"0"]) {
+    if ( [[[KNSUserDefaults objectForKey:KCurrentUser] objectForKey:KCurrentUser_version] isEqualToString:@"0"]) {
         isForceUpdate = YES;
         
         textLabel.text = @"首次更新无法跳过，请耐心等待！";
+        [self parseData:nil];
     }
     else {
         isForceUpdate = NO;

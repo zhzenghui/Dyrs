@@ -26,6 +26,9 @@
     UILabel *fileNumTextLabel;
 
     BOOL isForceUpdate;
+    
+    
+    
 }
 
 

@@ -15,6 +15,7 @@
 @property(nonatomic, retain) NSString *email;
 @property(nonatomic, retain) NSString *content;
 @property(nonatomic, retain) NSString *role;
+@property(nonatomic, retain) NSString *version;
 @property(nonatomic, retain) NSString *created_at;
 @property(nonatomic, retain) NSString *updated_at;
 @property(nonatomic, retain) NSString *expiredDate;
@@ -33,6 +34,7 @@
 
 - (NSDictionary *)userToDict:(Users *)user;
 - (Users *)dictToUser:(NSDictionary *)userDict;
+- (NSMutableDictionary *)currentUser;
 
 
 - (void)saveCurrentUser:(NSMutableDictionary *)userDict;

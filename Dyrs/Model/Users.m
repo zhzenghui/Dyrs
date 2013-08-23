@@ -17,6 +17,7 @@ static Users *user;
 @synthesize email;
 @synthesize content;
 @synthesize role;
+@synthesize version;
 @synthesize created_at;
 @synthesize updated_at;
 @synthesize expiredDate;
@@ -61,7 +62,7 @@ static Users *user;
     [role release];
     [created_at release];
     [updated_at release];
-    
+    [version release];
     
     [super dealloc];
 }
@@ -103,6 +104,7 @@ static Users *user;
 
     self.ID = [userDict objectForKey:@"user_id"];
     self.name = [userDict objectForKey:@"name"];
+    self.version = [userDict objectForKey:@"version"];
 //    self.email = [userDict objectForKey:@"email"];
 //    self.role = [userDict objectForKey:@"role"];
 //    self.content = [userDict objectForKey:@"content"];
@@ -114,18 +116,29 @@ static Users *user;
 }
 
 
+- (NSMutableDictionary *)currentUser
+{
+    
+    return [KNSUserDefaults objectForKey:KCurrentUser];
+}
+
 - (void)saveCurrentUser:(NSMutableDictionary *)userDict
 {
     
+
     if (KisHaro) {
-        [userDict setValue:[NSDate stringFromDate:[NSDate date]] forKey:@"expiredDate"];        
+        [userDict setValue:[NSDate date] forKey:@"expiredDate"];
     }
 
-    if ( ![userDict objectForKey:KCurrentUser_version]) {
-        [KNSUserDefaults setValue:@"0" forKey:KCurrentUser_version];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:userDict];
+
+    if ( ! [dict objectForKey:KCurrentUser_version]) {
+        [dict setValue:@"0" forKey:KCurrentUser_version];
     }
-    [KNSUserDefaults setValue:userDict forKey:[userDict objectForKey:@"name"]];
-    [KNSUserDefaults setValue:userDict forKey:KCurrentUser];
+
+    
+    [KNSUserDefaults setValue:dict forKey:[dict objectForKey:@"name"]];
+    [KNSUserDefaults setValue:dict forKey:KCurrentUser];
     
     [self reloadUserInfo];
 }
