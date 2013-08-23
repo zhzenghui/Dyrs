@@ -52,6 +52,7 @@
 #define KNSUserDefaults [NSUserDefaults standardUserDefaults] 
 
 #define KCurrentUser @"currentUser"
+#define KCurrentUser_version @"version"
 
 #define KDocumentDirectory [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 
@@ -60,8 +61,7 @@
 #define KProjectNameHaro @"haro"
 #define KProjectNameDyrs @"Dyrs"
 
-#define KCurrentProjectName @"haro"
-
+#define KCurrentProjectName @"dyrs"
 
 
 #define SDWIRetain(__v) ([__v retain]);

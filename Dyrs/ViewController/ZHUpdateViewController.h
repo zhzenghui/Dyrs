@@ -17,12 +17,15 @@
 #import "ZHPassDataJSON.h"
 
 
-@interface ZHUpdateViewController : UIViewController<ImageDownloaderDelegate, ZHPassDataJSONDelegate>
+@interface ZHUpdateViewController : BaseViewController<ImageDownloaderDelegate, ZHPassDataJSONDelegate>
 {
     NSDate *startDate ;
     NSDate *endDate;
     
     UILabel *textLabel;
+    UILabel *fileNumTextLabel;
+
+    BOOL isForceUpdate;
 }
 
 

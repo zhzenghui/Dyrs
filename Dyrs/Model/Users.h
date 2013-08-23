@@ -35,7 +35,7 @@
 - (Users *)dictToUser:(NSDictionary *)userDict;
 
 
-- (void)saveCurrentUser:(NSDictionary *)userDict;
+- (void)saveCurrentUser:(NSMutableDictionary *)userDict;
 - (void)deleteCurrentUser:(NSDictionary *)userDict;
 
 

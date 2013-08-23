@@ -8,7 +8,7 @@
 
 #import "ZHAppDelegate.h"
 
-#import "ZHViewController.h"
+#import "ZHMainViewController.h"
 
 @implementation ZHAppDelegate
 
@@ -22,9 +22,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    self.viewController = [[[ZHViewController alloc] initWithNibName:@"ZHViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
+
+    ZHMainViewController *masterViewController = [[[ZHMainViewController alloc] init] autorelease];
+    UINavigationController *masterNavigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
+    masterNavigationController.navigationBarHidden = YES;
+    
+    UIApplication *myapp = [UIApplication sharedApplication];
+    [myapp setStatusBarHidden:YES];
+    
+    self.window.rootViewController = masterNavigationController;    
     [self.window makeKeyAndVisible];
     return YES;
 }

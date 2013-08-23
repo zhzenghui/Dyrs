@@ -11,7 +11,10 @@
 @interface Button : NSObject
 
 
+
 + (id)share;
+
+
 
 - (UIButton *)addSelfView:(UIView *)view
                rect:(CGRect)rect

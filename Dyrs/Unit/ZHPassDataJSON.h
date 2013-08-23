@@ -37,9 +37,10 @@ typedef enum {
 
 
 
-#define Kinsert @"i"
-#define Kupdate @"u"
-#define Kdelete @"d"
+#define Kinsert @"1"
+#define Kdelete @"2"
+#define Kupdate @"3"
+
 
 
 #import <Foundation/Foundation.h>

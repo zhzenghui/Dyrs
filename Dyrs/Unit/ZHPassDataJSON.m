@@ -64,6 +64,12 @@
 
 - (void)stringToDBSqlString:(NSString *)sqlString
 {
+    
+    if (!sqlString) {
+        return;
+    }
+    
+    
     bool statue =  [db executeUpdate:
                     sqlString];
     
@@ -78,6 +84,13 @@
 
 - (void)dictToDB:(NSDictionary *)dict sqlString:(NSString *)sqlString
 {
+    
+    
+    if (!sqlString) {
+        return;
+    }
+    
+    
     bool statue =  [db executeUpdate:
                     sqlString withParameterDictionary:dict];
     
@@ -407,16 +420,23 @@ switch (tableName) {
 
 }
 
-- (void)insertDictToDB:(NSDictionary *)userDict  tableName:(_TableName)tableName
+- (void)insertDictToDB:(NSDictionary *)dict  tableName:(_TableName)tableName
 {
     
-    NSString *sqlString = nil;
+    NSMutableString *sqlString = [NSMutableString string];
     
     switch (tableName) {
 //            dyrs
         case UserTable:
         {
-            sqlString = [NSString stringWithFormat:@"INSERT INTO user (user_id, name, gender, account, password, type, create_time, status, dept_id) VALUES (:user_id, :name, :gender, :account, :password, :type, :create_time, :status, :dept_id)"];
+            [sqlString appendString:@"INSERT INTO user ("];
+
+            
+            [sqlString appendString:@")"];
+            [sqlString appendString:@"VALUES ("];
+            
+            [sqlString appendString:@")"];
+            sqlString = [NSString stringWithFormat:@"user_id, name, gender, account, password, type, version,create_time, status, dept_id) VALUES (:user_id, :name, :gender, :account, :password, :type, :create_time, :status, :dept_id)"];
             break;
         }
         case ChannelTable:
@@ -465,11 +485,40 @@ switch (tableName) {
         {
             sqlString = [NSString stringWithFormat:@"INSERT INTO Accessories (id, title, info, cate_id, status, create_time) VALUES (:id, :title, :info, :cate_id, :status, :create_time)"];
             break;
+            [sqlString appendString:@"INSERT INTO Product ("];
+            [sqlString appendString:@""];
+            [sqlString appendString:@")  VALUES ("];
+            [sqlString appendFormat:@"%@", [dict objectForKey:@"cate_id"]];
+            [sqlString appendString:@") "];
         }
 //            haro
         case ProductTable:
         {
-            sqlString = [NSString stringWithFormat:@"INSERT INTO Product (product_id, cate_id, no, color, info_cn, info_en, price, standard, wood, process, deal, level, array_order, status, create_time) VALUES (:product_id, :cate_id, no, :color, :info_cn, :info_en, :price, :standard, :wood, :process, :deal,:level, :array_order, :status, :create_time)"];
+
+            [sqlString appendString:@"INSERT OR REPLACE INTO Product ("];
+            [sqlString appendString:@"cate_id, \
+             color, \
+             info_cn, \
+             info_en, \
+             level, \
+             no, \
+             price, \
+             product_id, \
+             series, \
+             standard\
+             "];
+            [sqlString appendString:@")  VALUES ("];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"cate_id"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"color"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"info_cn"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"info_en"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"level"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"no"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"price"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"product_id"]];
+            [sqlString appendFormat:@"'%@', ", [dict objectForKey:@"series"]];
+            [sqlString appendFormat:@"'%@'", [dict objectForKey:@"standard"]];
+            [sqlString appendString:@") "];
             break;
         }
         case CategoryHaroTable:
@@ -520,7 +569,7 @@ switch (tableName) {
     }
 
     
-    [self dictToDB:userDict sqlString:sqlString];
+    [self stringToDBSqlString:sqlString];
 }
 
 
@@ -585,17 +634,17 @@ switch (tableName) {
 - (void)jsonSqlType:(NSDictionary *)tableSqlDict  tableName:(_TableName)tableName
 {
     
-    if ([[tableSqlDict objectForKey:@"sqltype"] isEqualToString:Kinsert]) {
+    if ([[[tableSqlDict objectForKey:@"sqltype"] stringValue] isEqualToString:Kinsert]) {
         
-        [self insertDictToDB:[tableSqlDict objectForKey:@"sqldata"] tableName:tableName];
+        [self insertDictToDB:tableSqlDict tableName:tableName];
     }
-    else if ([[tableSqlDict objectForKey:@"sqltype"] isEqualToString:Kupdate]) {
+    else if ([[[tableSqlDict objectForKey:@"sqltype"] stringValue] isEqualToString:Kupdate]) {
         
-        [self updataDictToDB:[tableSqlDict objectForKey:@"sqldata"]  tableName:tableName];
+        [self updataDictToDB:tableSqlDict  tableName:tableName];
 
     }
-    else if ([[tableSqlDict objectForKey:@"sqltype"] isEqualToString:Kdelete]) {
-        [self deleteDictToDB:[tableSqlDict objectForKey:@"sqldata"]  tableName:tableName];
+    else if ([[[tableSqlDict objectForKey:@"sqltype"] stringValue] isEqualToString:Kdelete]) {
+        [self deleteDictToDB:tableSqlDict  tableName:tableName];
 
     }
 }
@@ -644,6 +693,11 @@ switch (tableName) {
         [self insertToDB:[jsonDict objectForKey:@"images"] tableName:ImagesTable];
     }
     
+    
+    if ([jsonDict objectForKey:@"product"])
+    {
+        [self insertToDB:[jsonDict objectForKey:@"product"] tableName:ProductTable];
+    }
     
 }
 
@@ -714,7 +768,6 @@ switch (tableName) {
     
     NSMutableArray *dataArray = [[NSMutableArray alloc] init];
 
-    
     
     NSString *sqlString = [NSString stringWithFormat:@"select * from images"];
     
